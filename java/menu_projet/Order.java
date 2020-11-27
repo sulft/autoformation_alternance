@@ -1,6 +1,10 @@
+import java.util.Scanner;
+
 public class Order {
+    static Scanner scan = new Scanner(System.in);
     //Affiche tous les menus
     public void affichageMenu () {
+        System.out.print("\n");
         System.out.println("1 - poulet");
         System.out.println("2 - boeuf");
         System.out.println("3 - végétarien");
@@ -25,7 +29,12 @@ public class Order {
             
             default:
                 System.out.println("Erreur sur le choix !");
-                
+
         }
+    }
+
+    public void runMenu () {
+        this.affichageMenu();
+        this.affichageMenuSelectioner(scan.nextInt());
     }
 }
