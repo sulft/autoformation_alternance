@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 public class Order {
     static Scanner scan = new Scanner(System.in);
+    private int choix;
     //Affiche tous les menus
     public void affichageMenu () {
         System.out.print("\n");
@@ -11,21 +12,25 @@ public class Order {
         System.out.print("Que souhaitez-vous comme menu ? ");
     }
 
-    public void affichageMenuSelectionner (int choix) {
-        switch(choix) {
+    public void affichageMenuSelectionner () {
+
+        this.choix = scan.nextInt();
+
+        switch(this.choix) {
+
             case 1:
-                System.out.println("Vous avez fait le choix du menu " + choix + " - Poulet");
+                System.out.println("Vous avez fait le choix du menu " + this.choix + " - Poulet");
                 this.accompagnement(true);
                 this.boisson();
                 break;
             
             case 2:
-                System.out.println("Vous avez fait le choix du menu " + choix + " - Boeuf");
+                System.out.println("Vous avez fait le choix du menu " + this.choix + " - Boeuf");
                 this.accompagnement(true);
                 break;
 
             case 3:
-                System.out.println("Vous avez fait le choix du menu " + choix + " - Végétarien");
+                System.out.println("Vous avez fait le choix du menu " + this.choix + " - Végétarien");
                 this.accompagnement(false);
                 this.boisson();
                 break;
@@ -36,7 +41,6 @@ public class Order {
     }
 
     public void accompagnement(boolean accompagnementPossible ) {
-        int choix2;
         
         if(accompagnementPossible) {
             System.out.print("\n");
@@ -45,32 +49,33 @@ public class Order {
             System.out.println("3 - Riz");
             System.out.print("Que souhaitez-vous comme accompagnement ? ");
 
-            choix2 = scan.nextInt();
+            this.choix = scan.nextInt();
 
-            switch(choix2) {
+            switch(this.choix) {
                 case 1:
-                    System.out.println("Vous avez fait le choix de l'accompagnement " + choix2 + " - Légume");
+                    System.out.println("Vous avez fait le choix de l'accompagnement " + this.choix + " - Légume");
                     break;
             
                 case 2:
-                    System.out.println("Vous avez fait le choix de l'accompagnement " + choix2 + " - Frite");
+                    System.out.println("Vous avez fait le choix de l'accompagnement " + this.choix + " - Frite");
                     break;
 
                 case 3:
-                    System.out.println("Vous avez fait le choix de l'accompagnement " + choix2 + " - Riz");
+                    System.out.println("Vous avez fait le choix de l'accompagnement " + this.choix + " - Riz");
                 break;
             
             default:
                 System.out.println("Vous n'avez pas choisi d'accompagnement");
             }
         } else {
+            System.out.print("\n");
             System.out.println("1 - oui");
             System.out.println("2 - non");
             System.out.print("Voulez-vous du riz ? ");
 
-            choix2 = scan.nextInt();
+            this.choix = scan.nextInt();
 
-            if(choix2 == 1 ) {
+            if(this.choix == 1 ) {
                 System.out.println("Vous avez choisi de prendre du riz.");
             }
             else {
@@ -81,26 +86,25 @@ public class Order {
     }
 
     public void boisson() { 
-        int choix3;
         System.out.print("\n");
         System.out.println("1 - Eau plate");
         System.out.println("2 - Eau gazeuse");
         System.out.println("3 - Soda");
         System.out.print("Que souhaitez-vous comme boisson ? ");
 
-        choix3 = scan.nextInt();
+        this.choix = scan.nextInt();
 
-        switch(choix3) {
+        switch(this.choix) {
             case 1:
-                System.out.println("Vous avez fait le choix de la boisson " + choix3 + " - Eau plate.");
+                System.out.println("Vous avez fait le choix de la boisson " + this.choix + " - Eau plate.");
                 break;
         
             case 2:
-                System.out.println("Vous avez fait le choix de la boisson " + choix3 + " - Eau gazeuse.");
+                System.out.println("Vous avez fait le choix de la boisson " + this.choix + " - Eau gazeuse.");
                 break;
 
             case 3:
-                System.out.println("Vous avez fait le choix de la boisson " + choix3 + " - Soda.");
+                System.out.println("Vous avez fait le choix de la boisson " + this.choix + " - Soda.");
             break;
         
         default:
@@ -111,6 +115,6 @@ public class Order {
 
     public void runMenu () {
         this.affichageMenu();
-        this.affichageMenuSelectionner(scan.nextInt());
+        this.affichageMenuSelectionner();
     }
 }
