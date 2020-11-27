@@ -2,7 +2,8 @@ import java.util.Scanner;
 
 public class Order {
     static Scanner scan = new Scanner(System.in);
-    private int choix;
+    private int choix; //choix commande
+    private int nbCommande; //nombre de commande
     //Affiche tous les menus
     public void affichageMenu () {
         System.out.print("\n");
@@ -116,5 +117,20 @@ public class Order {
     public void runMenu () {
         this.affichageMenu();
         this.affichageMenuSelectionner();
+    }
+
+    public void nombreDeCommande() {
+        System.out.print("Combien de commande, voulez-vous effectuer ? ");
+        this.nbCommande = scan.nextInt();
+        for(int i = 0; i<this.nbCommande; i++) {
+            runMenu();
+            System.out.print("\n");
+            System.out.print("\n");
+            if(i<this.nbCommande-1) {
+                System.out.print("Ok c'est noté, commande suivante ? ");
+                System.out.print("\n");
+                System.out.print("\n");
+            }
+        }
     }
 }
