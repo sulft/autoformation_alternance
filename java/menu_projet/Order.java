@@ -15,30 +15,32 @@ public class Order {
 
     public void affichageMenuSelectionner () {
 
-        this.choix = scan.nextInt();
+        do {
+            this.choix = scan.nextInt();
 
-        switch(this.choix) {
+            switch(this.choix) {
 
-            case 1:
-                System.out.println("Vous avez fait le choix du menu " + this.choix + " - Poulet");
-                this.accompagnement(true);
-                this.boisson();
-                break;
-            
-            case 2:
-                System.out.println("Vous avez fait le choix du menu " + this.choix + " - Boeuf");
-                this.accompagnement(true);
-                break;
+                case 1:
+                    System.out.println("Vous avez fait le choix du menu " + this.choix + " - Poulet");
+                    this.accompagnement(true);
+                    this.boisson();
+                    break;
+                
+                case 2:
+                    System.out.println("Vous avez fait le choix du menu " + this.choix + " - Boeuf");
+                    this.accompagnement(true);
+                    break;
 
-            case 3:
-                System.out.println("Vous avez fait le choix du menu " + this.choix + " - Végétarien");
-                this.accompagnement(false);
-                this.boisson();
-                break;
-            
-            default:
-                System.out.println("Erreur sur le choix !");
-        }
+                case 3:
+                    System.out.println("Vous avez fait le choix du menu " + this.choix + " - Végétarien");
+                    this.accompagnement(false);
+                    this.boisson();
+                    break;
+                
+                default:
+                    System.out.println("Erreur sur le choix !");
+            }
+        }while(this.choix != 1 || this.choix != 2 || this.choix != 3);
     }
 
     public void accompagnement(boolean accompagnementPossible ) {
