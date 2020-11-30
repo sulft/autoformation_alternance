@@ -9,6 +9,7 @@ public class Order {
     private int choix; //choix commande
     private int nbCommande; //nombre de commande
     private String menu[] = {"Poulet", "Boeuf", "Végétarien"};
+    public String recapitulatif = "";
 
     public int demanderMenu(String categorie, String[] reponse) {
         System.out.print("\n");
@@ -31,7 +32,8 @@ public class Order {
             }
 
             if(ok == true) {
-                System.out.println("Vous avez choisi " + categorie + " : " + reponse[this.choix - 1]);
+                String selection = "Vous avez choisi " + categorie + " : " + reponse[this.choix - 1];
+                this.recapitulatif = this.recapitulatif + selection + "\n";
             }
             else {
                 System.out.println("Vous n'avez pas choisi de " + categorie + ".." );
@@ -39,8 +41,9 @@ public class Order {
 
             }
         }while(ok==false);
+        System.out.print(this.recapitulatif);
 
-        return this.choix;
+        return this.choix;//retourne le numéro du choix choisi
     }
 
     //cas spécial en cas de menu végétarien, seulement possibilité de riz
@@ -59,7 +62,8 @@ public class Order {
         this.demanderMenu("Boisson", boisson);
     }
 
-    public void runMenu () {
+    public void runMenu (int i) {
+        System.out.print("Menu : " + (i+1));
         int valeur = this.demanderMenu("Menu", this.menu);//valeur retourné permettant de savoir le menu selectionné avec ces options
         switch(valeur) {
             case 1:
@@ -76,13 +80,17 @@ public class Order {
                 this.demandeBoisson();
                 break;
         }
+        System.out.print("\n");
+        System.out.println("Résumé de votre commande :");
+
     }
 
     public void nombreDeCommande() {
         System.out.print("Combien de commande, voulez-vous effectuer ? ");
         this.nbCommande = scan.nextInt();
         for(int i = 0; i<this.nbCommande; i++) {
-            runMenu();
+            runMenu(i);            
+            System.out.println(this.recapitulatif);
             if(i<this.nbCommande-1) {
                 System.out.print("Ok c'est noté, commande suivante ? ");
                 System.out.print("\n");
