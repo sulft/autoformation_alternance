@@ -60,7 +60,7 @@ public class Order {
     }
 
     public void runMenu () {
-        int valeur = this.demanderMenu("Menu", this.menu); 
+        int valeur = this.demanderMenu("Menu", this.menu);//valeur retourné permettant de savoir le menu selectionné avec ces options
         switch(valeur) {
             case 1:
                 this.demandeAccompagnement(true);
