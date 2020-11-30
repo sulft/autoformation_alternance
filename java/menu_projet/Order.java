@@ -1,3 +1,7 @@
+/* Projet réalisation Menu de Terry. Inspiré du cours openclassroom :
+https://openclassrooms.com/en/courses/4975451-demarrez-votre-projet-avec-java
+*/
+
 import java.util.Scanner;
 
 public class Order {
@@ -6,6 +10,7 @@ public class Order {
     private int nbCommande; //nombre de commande
 
     public void demanderMenu(String categorie, String[] reponse) {
+        System.out.print("\n");
         System.out.println("Choix " + categorie); // affiche le choix de la catégorie en cours
             for(int i = 0; i < reponse.length; i++) {
                 System.out.println(i+1 + " - " + reponse[i]);
@@ -26,30 +31,33 @@ public class Order {
 
             if(ok == true) {
                 System.out.println("Vous avez choisi " + categorie + " : " + reponse[this.choix - 1]);
-                System.out.println("\n");
             }
             else {
                 System.out.println("Vous n'avez pas choisi de " + categorie + ".." );
-                System.out.println("\n");
+                System.out.print(categorie + " ? ");
+
             }
         }while(ok==false);
     }
 
+
+    //cas de figure accompagnement ou boisson
     public void affichageMenuSelectionner(int choix) {
         String accompagnement[] = {"Légume", "Frite", "Riz"};
         String boisson[] = {"Eau plate", "Eau gazeux", "Soda"};
         if(choix == 1) {
             this.demanderAccompagnement(true, "Accompagnement", accompagnement);
-            this.demanderBoisson("Boisson", boisson);
+            this.demanderMenu("Boisson", boisson);
 
         } else if (choix == 2) {
             this.demanderAccompagnement(true, "Accompagnement", accompagnement);
         } else {
             this.demanderAccompagnement(false, "Accompagnement", accompagnement);
-            this.demanderBoisson("Boisson", boisson);
+            this.demanderMenu("Boisson", boisson);
         }
     }
 
+    //cas spécial en cas de menu végétarien, seulement possibilité de riz
     public void demanderAccompagnement(boolean accompagnementPossible, String categorie, String[] reponse ) {
         if(accompagnementPossible) {
             this.demanderMenu(categorie, reponse);
@@ -57,11 +65,6 @@ public class Order {
             String rizOuNon[] = {"Oui", "Non"};
             this.demanderMenu("Riz", rizOuNon);
         }
-
-    }
-
-    public void demanderBoisson(String categorie, String[] reponse) {
-        this.demanderMenu(categorie, reponse);
     }
 
     public void runMenu () {
@@ -77,7 +80,6 @@ public class Order {
             runMenu();
             if(i<this.nbCommande-1) {
                 System.out.print("Ok c'est noté, commande suivante ? ");
-                System.out.print("\n");
                 System.out.print("\n");
             }
         }
