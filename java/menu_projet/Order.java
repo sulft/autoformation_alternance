@@ -3,6 +3,7 @@ https://openclassrooms.com/en/courses/4975451-demarrez-votre-projet-avec-java
 */
 
 import java.util.Scanner;
+import java.util.*;
 
 public class Order {
     static Scanner scan = new Scanner(System.in);
@@ -87,14 +88,20 @@ public class Order {
 
     public void nombreDeCommande() {
         System.out.print("Combien de commande, voulez-vous effectuer ? ");
-        this.nbCommande = scan.nextInt();
-        for(int i = 0; i<this.nbCommande; i++) {
-            runMenu(i);            
-            System.out.println(this.recapitulatif);
-            if(i<this.nbCommande-1) {
-                System.out.print("Ok c'est noté, commande suivante ? ");
-                System.out.print("\n");
+        do {
+            try {
+                this.nbCommande = scan.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.print("teset");
             }
-        }
+            for(int i = 0; i<this.nbCommande; i++) {
+                runMenu(i);            
+                System.out.println(this.recapitulatif);
+                if(i<this.nbCommande-1) {
+                    System.out.print("Ok c'est noté, commande suivante ? ");
+                    System.out.print("\n");
+                }
+            }
+        }while(this.commande)
     }
 }
