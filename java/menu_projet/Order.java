@@ -13,86 +13,55 @@ public class Order {
         System.out.print("Que souhaitez-vous comme menu ? ");
     }
 
-    public void affichageMenuSelectionner () {
+
+    public void demanderMenu(String categorie, String[] reponse) {
+        System.out.println("Choix " + categorie); // affiche le choix de la catégorie en cours
+        for(int i = 0; i < reponse.length; i++) {
+            System.out.println(i+1 + " - " + reponse[i]);
+        }
+
+        System.out.println("Que voulez-vous comme " + categorie + " ? ");
+
+        boolean ok; //verifie si la commande est bien effectué 
 
         do {
             this.choix = scan.nextInt();
-            scan.nextLine();
-
-            switch(this.choix) {
-
-                case 1:
-                    System.out.println("Vous avez fait le choix du menu " + this.choix + " - Poulet");
-                    this.accompagnement(true);
-                    this.boisson();
-                    break;
-                
-                case 2:
-                    System.out.println("Vous avez fait le choix du menu " + this.choix + " - Boeuf");
-                    this.accompagnement(true);
-                    break;
-
-                case 3:
-                    System.out.println("Vous avez fait le choix du menu " + this.choix + " - Végétarien");
-                    this.accompagnement(false);
-                    this.boisson();
-                    break;
-                
-                default:
-                    System.out.println("Erreur sur le choix !");
-                    this.affichageMenu();
+            if(this.choix >0 && this.choix<4){
+                ok = true;
             }
-        }while(this.choix<1 ||this.choix>3);
+            else {
+                ok = false;
+            }
+
+            if(ok == true) {
+                System.out.println("Vous avez choisi " + categorie + " : " + reponse[this.choix - 1]);
+            }
+            else {
+                System.out.println("Vous n'avez pas choisi de " + categorie + ".." );
+            }
+        }while(ok==false);
     }
 
-    public void accompagnement(boolean accompagnementPossible ) {
-        if(accompagnementPossible) {
-            do {
-                System.out.print("\n");
-                System.out.println("1 - Légume");
-                System.out.println("2 - Frite");
-                System.out.println("3 - Riz");
-                System.out.print("Que souhaitez-vous comme accompagnement ? ");
-
-                this.choix = scan.nextInt();
-
-                switch(this.choix) {
-                    case 1:
-                        System.out.println("Vous avez fait le choix de l'accompagnement " + this.choix + " - Légume");
-                        break;
-                        
-                    case 2:
-                        System.out.println("Vous avez fait le choix de l'accompagnement " + this.choix + " - Frite");
-                        break;
-
-                    case 3:
-                        System.out.println("Vous avez fait le choix de l'accompagnement " + this.choix + " - Riz");
-                        break;
-                        
-                    default:
-                        System.out.println("Erreur sur le choix !");
-                }
-            }while(this.choix<1 ||this.choix>3);
+    public void affichageMenuSelectionner(int choix) {
+        String accompagnement[] = {"Légume", "Frite", "Riz"};
+        if(choix == 1) {
+            this.demanderAccompagnement(true, "Accompagnement", accompagnement);
+        } else if (choix == 2) {
+            this.demanderAccompagnement(true, "Accompagnement", accompagnement);
         } else {
-            do {
-                System.out.print("\n");
-                System.out.println("1 - oui");
-                System.out.println("2 - non");
-                System.out.print("Voulez-vous du riz ? ");
-
-                this.choix = scan.nextInt();
-
-                if(this.choix == 1 ) {
-                    System.out.println("Vous avez choisi de prendre du riz.");
-                }
-                else if(this.choix == 2 ){
-                    System.out.println("Vous avez choisi de ne pas prendre de riz.");
-                }
-                else {
-                    System.out.println("Erreur sur le choix !"); 
-                }
-            }while(this.choix<1 ||this.choix>2);
+            this.demanderAccompagnement(false, "Accompagnement", accompagnement);
         }
+    }
+
+    public void demanderAccompagnement(boolean accompagnementPossible, String categorie, String[] reponse ) {
+        if(accompagnementPossible) {
+            String accompagnement[] = {"Poulet", "Boeuf", "Végétarien"};
+            this.demanderMenu("Accompagnement", accompagnement);
+        } else {
+            String rizOuNon[] = {"Oui", "Non"};
+            this.demanderMenu("Riz", rizOuNon);
+        }
+
     }
 
     public void boisson() { 
@@ -125,8 +94,10 @@ public class Order {
     }
 
     public void runMenu () {
-        this.affichageMenu();
-        this.affichageMenuSelectionner();
+        String menu[] = {"Poulet", "Boeuf", "Végétarien"};
+        this.demanderMenu("Menu", menu);
+        this.affichageMenuSelectionner(this.choix);//sélectionne le choix entrer dans demanderMenu
+        //this.affichageMenuSelectionner();
     }
 
     public void nombreDeCommande() {
