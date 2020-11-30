@@ -8,8 +8,9 @@ public class Order {
     static Scanner scan = new Scanner(System.in);
     private int choix; //choix commande
     private int nbCommande; //nombre de commande
+    private String menu[] = {"Poulet", "Boeuf", "Végétarien"};
 
-    public void demanderMenu(String categorie, String[] reponse) {
+    public int demanderMenu(String categorie, String[] reponse) {
         System.out.print("\n");
         System.out.println("Choix " + categorie); // affiche le choix de la catégorie en cours
             for(int i = 0; i < reponse.length; i++) {
@@ -38,39 +39,43 @@ public class Order {
 
             }
         }while(ok==false);
-    }
 
-
-    //cas de figure accompagnement ou boisson
-    public void affichageMenuSelectionner(int choix) {
-        String accompagnement[] = {"Légume", "Frite", "Riz"};
-        String boisson[] = {"Eau plate", "Eau gazeux", "Soda"};
-        if(choix == 1) {
-            this.demanderAccompagnement(true, "Accompagnement", accompagnement);
-            this.demanderMenu("Boisson", boisson);
-
-        } else if (choix == 2) {
-            this.demanderAccompagnement(true, "Accompagnement", accompagnement);
-        } else {
-            this.demanderAccompagnement(false, "Accompagnement", accompagnement);
-            this.demanderMenu("Boisson", boisson);
-        }
+        return this.choix;
     }
 
     //cas spécial en cas de menu végétarien, seulement possibilité de riz
-    public void demanderAccompagnement(boolean accompagnementPossible, String categorie, String[] reponse ) {
+    public void demandeAccompagnement(boolean accompagnementPossible) {
+        String accompagnement[] = {"Légume", "Frite", "Riz"};
+        String rizOuNon[] = {"Oui", "Non"};
         if(accompagnementPossible) {
-            this.demanderMenu(categorie, reponse);
+            this.demanderMenu("Accompagnement", accompagnement);
         } else {
-            String rizOuNon[] = {"Oui", "Non"};
             this.demanderMenu("Riz", rizOuNon);
         }
     }
 
+    public void demandeBoisson() {
+        String boisson[] = {"Eau plate", "Eau gazeux", "Soda"};
+        this.demanderMenu("Boisson", boisson);
+    }
+
     public void runMenu () {
-        String menu[] = {"Poulet", "Boeuf", "Végétarien"};
-        this.demanderMenu("Menu", menu);
-        this.affichageMenuSelectionner(this.choix);//sélectionne le choix entrer dans demanderMenu
+        int valeur = this.demanderMenu("Menu", this.menu); 
+        switch(valeur) {
+            case 1:
+                this.demandeAccompagnement(true);
+                this.demandeBoisson();
+                break;
+
+            case 2:
+                this.demandeAccompagnement(true);
+                break;
+
+            case 3:
+                this.demandeAccompagnement(false);
+                this.demandeBoisson();
+                break;
+        }
     }
 
     public void nombreDeCommande() {
