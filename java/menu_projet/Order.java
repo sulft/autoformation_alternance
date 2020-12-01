@@ -9,6 +9,7 @@ public class Order {
     static Scanner scan = new Scanner(System.in);
     private int choix; //choix commande
     private int nbCommande; //nombre de commande
+    static boolean ok; //valeur valide
     private String menu[] = {"Poulet", "Boeuf", "Végétarien"};
     public String recapitulatif = "";
 
@@ -21,25 +22,29 @@ public class Order {
 
         System.out.print(categorie + " ? ");
 
-        boolean ok; //verifie si la commande est bien effectué 
 
         do {
-            this.choix = scan.nextInt();
-            if(this.choix >0 && this.choix<4){
-                ok = true;
-            }
-            else {
+            try {
+                this.choix = scan.nextInt();
+                if(this.choix >0 && this.choix<4){
+                    ok = true;
+                }
+                else {
+                    ok = false;
+                }
+
+                if(ok == true) {
+                    String selection = "Vous avez choisi " + categorie + " : " + reponse[this.choix - 1];
+                    this.recapitulatif = this.recapitulatif + selection + "\n";
+                }
+                else {
+                    System.out.println("Vous n'avez pas choisi de " + categorie + ".." );
+                    System.out.print(categorie + " ? ");
+                }
+            } catch(InputMismatchException e) {
+                scan.next();
+                System.out.println("Saisissez un entier s'il vous plaît ..");
                 ok = false;
-            }
-
-            if(ok == true) {
-                String selection = "Vous avez choisi " + categorie + " : " + reponse[this.choix - 1];
-                this.recapitulatif = this.recapitulatif + selection + "\n";
-            }
-            else {
-                System.out.println("Vous n'avez pas choisi de " + categorie + ".." );
-                System.out.print(categorie + " ? ");
-
             }
         }while(ok==false);
         System.out.print(this.recapitulatif);
@@ -92,7 +97,10 @@ public class Order {
             try {
                 this.nbCommande = scan.nextInt();
             } catch (InputMismatchException e) {
-                System.out.print("teset");
+                scan.next();
+                System.out.println("Saisissez un entier s'il vous plaît..");
+                System.out.print("Combien de commande, voulez-vous effectuer ? ");
+                ok = false;
             }
             for(int i = 0; i<this.nbCommande; i++) {
                 runMenu(i);            
@@ -102,6 +110,8 @@ public class Order {
                     System.out.print("\n");
                 }
             }
-        }while(this.commande)
+        }while(ok==false); 
+        /*tant que ok est égale à false, c'est à dire en rentrant dans 
+        le catch de l'exception, on redemandera à l'utilisateur de saisire sa valeur */
     }
 }
