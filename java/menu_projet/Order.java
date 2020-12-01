@@ -1,9 +1,13 @@
 /* Projet réalisation Menu de Terry. Inspiré du cours openclassroom :
 https://openclassrooms.com/en/courses/4975451-demarrez-votre-projet-avec-java
 */
-
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 import java.util.*;
+
+import static java.nio.file.StandardOpenOption.APPEND;
 
 public class Order {
     static Scanner scan = new Scanner(System.in);
@@ -53,37 +57,40 @@ public class Order {
     }
 
     //cas spécial en cas de menu végétarien, seulement possibilité de riz
-    public void demandeAccompagnement(boolean accompagnementPossible) {
+    public int demandeAccompagnement(boolean accompagnementPossible) {
         String accompagnement[] = {"Légume", "Frite", "Riz"};
         String rizOuNon[] = {"Oui", "Non"};
         if(accompagnementPossible) {
-            this.demanderMenu("Accompagnement", accompagnement);
+            return demanderMenu("Accompagnement", accompagnement);
         } else {
-            this.demanderMenu("Riz", rizOuNon);
+            return demanderMenu("Riz", rizOuNon);
         }
     }
 
-    public void demandeBoisson() {
+    public int demandeBoisson() {
         String boisson[] = {"Eau plate", "Eau gazeux", "Soda"};
-        this.demanderMenu("Boisson", boisson);
+        return demanderMenu("Boisson", boisson);
     }
 
     public void runMenu (int i) {
         System.out.print("Menu : " + (i+1));
-        int valeur = this.demanderMenu("Menu", this.menu);//valeur retourné permettant de savoir le menu selectionné avec ces options
-        switch(valeur) {
+        int nbMenu = demanderMenu("Menu", this.menu);;
+        int nbAccompagnement = -1;
+        int nbBoisson = -1;
+
+        switch(nbMenu) {
             case 1:
-                this.demandeAccompagnement(true);
-                this.demandeBoisson();
+                nbAccompagnement = demandeAccompagnement(true);
+                nbBoisson = demandeBoisson();
                 break;
 
             case 2:
-                this.demandeAccompagnement(true);
+                nbAccompagnement = demandeAccompagnement(true);
                 break;
 
             case 3:
-                this.demandeAccompagnement(false);
-                this.demandeBoisson();
+                nbAccompagnement = demandeAccompagnement(false);
+                nbBoisson = demandeBoisson();
                 break;
         }
         System.out.print("\n");
@@ -92,6 +99,7 @@ public class Order {
     }
 
     public void nombreDeCommande() {
+        Path orderPath = Paths.get("menu.csv");
         System.out.print("Combien de commande, voulez-vous effectuer ? ");
         do {
             try {
