@@ -1,9 +1,11 @@
 /* Projet réalisation Menu de Terry. Inspiré du cours openclassroom :
 https://openclassrooms.com/en/courses/4975451-demarrez-votre-projet-avec-java
 */
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.*;
 
@@ -99,7 +101,6 @@ public class Order {
     }
 
     public void nombreDeCommande() {
-        Path orderPath = Paths.get("menu.csv");
         System.out.print("Combien de commande, voulez-vous effectuer ? ");
         do {
             try {
