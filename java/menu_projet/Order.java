@@ -1,10 +1,11 @@
 /* Projet réalisation Menu de Terry. Inspiré du cours openclassroom :
 https://openclassrooms.com/en/courses/4975451-demarrez-votre-projet-avec-java
 */
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.io.IOException;
+import java.io.FileWriter;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.*;
@@ -75,29 +76,39 @@ public class Order {
     }
 
     public void runMenu (int i) {
-        System.out.print("Menu : " + (i+1));
-        int nbMenu = demanderMenu("Menu", this.menu);;
-        int nbAccompagnement = -1;
-        int nbBoisson = -1;
+        try {
+            Path orderPath = Paths.get("menu.csv");
+            //FileOutputStream oStream = new FileOutputStream("menu.csv",true);
+            //OutputStreamWriter sWriter = new OutputStreamWriter(oStream);
+            //BufferedWriter bWriter = new BufferedWriter(sWriter);
 
-        switch(nbMenu) {
-            case 1:
-                nbAccompagnement = demandeAccompagnement(true);
-                nbBoisson = demandeBoisson();
-                break;
+            System.out.print("Menu : " + (i+1));
+            int nbMenu = demanderMenu("Menu", this.menu);;
+            int nbAccompagnement = -1;
+            int nbBoisson = -1;
 
-            case 2:
-                nbAccompagnement = demandeAccompagnement(true);
-                break;
+            switch(nbMenu) {
+                case 1:
+                    nbAccompagnement = demandeAccompagnement(true);
+                    nbBoisson = demandeBoisson();
+                    break;
 
-            case 3:
-                nbAccompagnement = demandeAccompagnement(false);
-                nbBoisson = demandeBoisson();
-                break;
+                case 2:
+                    nbAccompagnement = demandeAccompagnement(true);
+                    break;
+
+                case 3:
+                    nbAccompagnement = demandeAccompagnement(false);
+                    nbBoisson = demandeBoisson();
+                    break;
+            }
+            System.out.print("\n");
+            System.out.println("Résumé de votre commande :");
+            Files.write(orderPath, String.format("\n" + nbMenu + "," + nbAccompagnement + "," + nbBoisson).getBytes(), APPEND);
+
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
         }
-        System.out.print("\n");
-        System.out.println("Résumé de votre commande :");
-
     }
 
     public void nombreDeCommande() {
