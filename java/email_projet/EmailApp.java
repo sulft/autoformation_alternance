@@ -11,5 +11,6 @@ public class EmailApp {
         String lastName = scan.nextLine();
 
         Email e = new Email(firstName,lastName);
+        e.affichageRecap();
     }
 }

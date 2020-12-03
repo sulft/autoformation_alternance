@@ -4,14 +4,17 @@
 • Generate a random string for their password.
 • Have set methods to change the password.
 • Have get methods to display name, email, and mailbox capacity.*/
-
+import java.util.Random;
 import java.util.Scanner;
 
 public class Email { 
     private String name;
     private String lastName;
     private String department;
-    private int mailBoxCapacity;
+    private String email;
+    private String altEmail;
+    private String entreprise = "CGI.com";
+    private int mailBoxCapacity = 500;
     private String password;
 
     static Scanner scan = new Scanner(System.in);
@@ -21,11 +24,18 @@ public class Email {
         this.lastName = lastName;
 
         this.department = demandeDepartement();
-        //affiche le departement de l'utilisateur
-        System.out.println("Vous êtes du département " + this.department + ".");
+
+        //création email à l'aide des éléments entrés
+        this.email = name.toLowerCase() + "." + lastName.toLowerCase() + "@" + this.department + "." + entreprise;
+        System.out.println("Votre email est : " + this.email);
+
+        this.password = randPassword();
+        //affiche le mot de passe généré
+        System.out.println("Votre mot de passe par défaut est : " + this.password);
+
     }
 
-    //demande du département
+    //demande quel est le département de travail
     private String demandeDepartement() {
         System.out.println("Quel est votre département ?");
         System.out.println("1 - Sales");
@@ -42,43 +52,51 @@ public class Email {
             }
         }while( (choix<0) || (choix>3) );
 
-        switch(choix) {
-            case 1:
-                return "sales";
+        System.out.println("\n**********************************************************************\n");
 
-            case 2:
-                return "dev";
-
-            case 3:
-                return "acc";
-
-            case 0:
-                return "";
-
-            default:
-                return "";
-        }
+        if( choix == 1 ) {
+            return "sales";
+        } else if ( choix == 2 ) {
+            return "dev";
+        } else if ( choix == 3) {
+            return "acc";
+        } else {
+            return "";
+        } 
     }
 
     //génération aléatoire du mot de passe 
     public String randPassword() {
-        return 
+        String chars = "azertyuiopmlkjhgfdsqwxcvbnABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890%&$*!?,;";
+        int taille_mdp = 8;
+
+        StringBuilder sBuilder = new StringBuilder();
+        Random rand = new Random();
+
+        for (int i = 0; i < taille_mdp; i++) {
+            sBuilder.append(chars.charAt(rand.nextInt(chars.length())));
+        }
+
+        return sBuilder.toString();
     }
-    //affichage prenom
 
-    //affichage email
-    public void affichageEmail() {
-        System.out.println("");
-    }
+    //Méthode SET
+    public void setMailBoxCapacity(int capacity) {this.mailBoxCapacity = capacity;}
+    public void setPassword(String password) {this.password = password;}
+    public void setAltEmail(String email) {this.altEmail = email;} //email alternatif
+    
+    //Méthode GET
+    public int getMailBoxCapacity () {return mailBoxCapacity;}
+    public String getAltEmail() {return altEmail;}
+    public String getPassword() {return password;}
+    public String getName() {return name;}
+    public String getEmail() {return email;}
 
-    //affichage capacité de stockage de la boite mail
-
-    //demande mot de passe
-
-    //demande quel est le département de travail
-
-    //création email alternatif
-
-
-
+    //Affichage
+    public void affichageRecap() {
+        System.out.println("\n**********************************************************************\n");
+        System.out.println("Votre nom est " + name);
+        System.out.println("Votre mail est " + email);
+        System.out.println("La capacité de stockage de votre boite mail est : " + mailBoxCapacity);
+    }   
 }
