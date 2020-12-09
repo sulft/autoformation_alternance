@@ -1,0 +1,14 @@
+note postgreSQL
+
+base de donnée avec "psql"
+
+création d'une base de donnée
+"CREATE DATABASE" "nom_du_database"
+
+Suppresion d'une base de donnée
+"DROP DATABASE" " nom_du_database"
+
+Crée une table
+"CREATE TABLE" table_name {
+    name type_data 
+}
