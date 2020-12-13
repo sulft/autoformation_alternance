@@ -1,10 +1,21 @@
-{{hero}}
+<h2>My heroes</h2>
+<ul class="heroes">
+    <li *ngFor='let hero of heroes' (click)="onSelect(hero)"
+    [class.selected]="hero === selectedHero" (click)="onSelect(hero)"> 
+    <!-- *ngFor permet de lister tous les objets "hero" qui sont
+    dans mon tableau herpes-->
+        <span class="badge">{{hero.id}}</span> {{hero.name}}
+    </li>
+</ul>
 
-<h2>{{hero.name | uppercase}} Details </h2>
-<div><span>id:</span> {{hero.id}}</div>
-<div>
-    <label>
-        <span>Name: </span>
-        <input [(ngModel)]="hero.name" placeholder="name">
-    </label>
+<div *ngIf="selectedHero">
+    <h2>{{selectedHero.name | uppercase}} Details </h2>
+    <div><span>id:</span> {{SelectedHero.id}}</div>
+    <div>
+        <label>
+            <span>Name: </span>
+            <input [(ngModel)]="selectedHero.name" placeholder="name"> <!-- ngModel
+            permet de modifier tout en écrivant le nom du héros-->
+        </label>
+    </div>
 </div>
